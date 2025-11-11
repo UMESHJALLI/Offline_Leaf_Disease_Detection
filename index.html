@@ -168,10 +168,10 @@
       "Tomato___healthy": { about: "Healthy tomato leaf with no visible symptoms.", remedy: "Continue regular care and watering.", pesticide: "Not required." }
     };
 
-    // 🔹 Load Model (fixed metadata filename)
+    // ✅ Corrected model loading (fixed filename)
     async function loadModel() {
       try {
-        model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metedata.json");
+        model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metadata.json");
         console.log("✅ Model Loaded Successfully");
       } catch (err) {
         console.error(err);
