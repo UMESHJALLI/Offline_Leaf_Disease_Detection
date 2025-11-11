@@ -137,7 +137,7 @@
   </div>
 
   <script>
-    const MODEL_URL = "./model/";
+    const MODEL_URL = "model/";
     let model, currentLang = "en";
 
     const langText = {
@@ -168,12 +168,14 @@
       "Tomato___healthy": { about: "Healthy tomato leaf with no visible symptoms.", remedy: "Continue regular care and watering.", pesticide: "Not required." }
     };
 
+    // 🔹 Load Model (fixed metadata filename)
     async function loadModel() {
       try {
-        model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metadata.json");
+        model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metedata.json");
         console.log("✅ Model Loaded Successfully");
       } catch (err) {
-        alert("❌ Model failed to load. Check model path.");
+        console.error(err);
+        alert("❌ Model failed to load. Check model path or file names.");
       }
     }
     loadModel();
@@ -188,6 +190,7 @@
     const pesticideText = document.getElementById("pesticideText");
     const langSelect = document.getElementById("languageSelect");
 
+    // 🔹 Language Change
     langSelect.addEventListener("change", () => {
       currentLang = langSelect.value;
       document.querySelector("#infoBox h4:nth-child(1)").innerText = langText[currentLang].about;
@@ -195,6 +198,7 @@
       document.querySelector("#infoBox h4:nth-child(5)").innerText = langText[currentLang].pesticide;
     });
 
+    // 🔹 Image Upload
     imageUpload.addEventListener("change", function () {
       const file = imageUpload.files[0];
       if (!file) return;
@@ -205,6 +209,7 @@
       preview.onload = () => predictImage();
     });
 
+    // 🔹 Prediction
     async function predictImage() {
       if (!model) {
         result.innerHTML = "⚠️ Model not loaded yet. Please wait.";
